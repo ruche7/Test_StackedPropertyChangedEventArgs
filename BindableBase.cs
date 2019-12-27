@@ -102,7 +102,7 @@ namespace TestApp
 #if USE_THREADLOCAL
                 var arg = propertyChangedArg.Value!;
 #else
-                var arg = propertyChangedArg;
+                var arg = this.propertyChangedArg;
 #endif
                 arg.Push(propertyName);
                 try
@@ -148,7 +148,7 @@ namespace TestApp
 
 #if USE_THREADLOCAL
         /// <summary>
-        /// スレッド別の StackedPropertyChangedEventArgs インスタンス。
+        /// スレッド別の StackedPropertyChangedEventArgs オブジェクト。
         /// </summary>
         private static readonly ThreadLocal<StackedPropertyChangedEventArgs>
         propertyChangedArg =
@@ -156,9 +156,9 @@ namespace TestApp
                 () => new StackedPropertyChangedEventArgs());
 #else
         /// <summary>
-        /// 唯一の StackedPropertyChangedEventArgs インスタンス。
+        /// StackedPropertyChangedEventArgs オブジェクト。
         /// </summary>
-        private static readonly StackedPropertyChangedEventArgs propertyChangedArg =
+        private readonly StackedPropertyChangedEventArgs propertyChangedArg =
             new StackedPropertyChangedEventArgs();
 #endif
     }
